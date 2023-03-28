@@ -20,20 +20,25 @@ def generateTarfile(input_path, output_path):
 def splitTarfile(tar_path):
     print('Spliting Tarfile...')
     
-    with open(tar_path, 'rb') as file:
-        content = file.read()
-        
     segments_dict = {}
     tar_folder_path = os.path.dirname(tar_path)
+    size = 5 * 1000000
     
-    size = len(content) // 5
-    segments = [content[i:i+size] for i in range(0, len(content), size)]
+    with open(tar_path, 'rb') as tar_file:
+        i = 0
+        
+        while True:
+            content = tar_file.read(size)
+            if not content:
+                break
+            
+            i += 1
+            with open(f'{tar_folder_path}/segment_{i+1}.tar.gz', 'wb') as segment_file:
+                segment_file.write(content)
+                segments_dict[i + 1] = segment_file.name
+                print(segment_file.name, 'created!')
     
-    for i, segment in enumerate(segments):
-        with open(f'{tar_folder_path}/segment_{i+1}.tar.gz', 'wb') as segment_file:
-            segment_file.write(segment)
-            segments_dict[i + 1] = segment_file.name
-            print(segment_file.name, 'created!')
+    
             
     with open(f'{tar_folder_path}/segments.json', 'w') as segments_file:
         json.dump(segments_dict, segments_file, indent=4)

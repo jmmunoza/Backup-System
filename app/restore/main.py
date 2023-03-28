@@ -42,6 +42,8 @@ def restoreTar(input_path, output_path):
         tar.extractall(output_path)
         
     os.remove(f'{output_path}restore.tar.gz')
+    
+    print('Backup completed successfully!')
 
 
 def main():
