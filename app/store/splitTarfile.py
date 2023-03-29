@@ -17,7 +17,7 @@ def splitTarfile(tar_path):
 
     segments_dict = {}
     tar_folder_path = os.path.dirname(tar_path)
-    size = 20 * 1000000  # 512 mb
+    size = 512 * 1000000  # 512 mb
 
     with open(tar_path, 'rb') as tar_file:
         i = 0
