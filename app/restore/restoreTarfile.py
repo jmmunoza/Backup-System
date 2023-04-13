@@ -25,7 +25,7 @@ def restoreTarfile(input_path, output_path):
         fernet = Fernet(fernet_key)
 
     with open(f'{output_path}restore.tar.gz', 'wb') as restoring_tar:
-        for key in sorted(segments_dict.keys()):
+        for key in sorted(segments_dict.keys(), key=lambda x: int(x)):
             segment_path = segments_dict[key]
             decrypted_path = decryptSegment(segment_path, fernet)
 

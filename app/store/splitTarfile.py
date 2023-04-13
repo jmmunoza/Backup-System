@@ -27,11 +27,13 @@ def splitTarfile(tar_path):
             if not content:
                 break
 
-            i += 1
+            
             with open(f'{tar_folder_path}/segment_{i+1}.tar.gz', 'wb') as segment_file:
                 segment_file.write(content)
                 segments_dict[i + 1] = segment_file.name
                 print(segment_file.name, 'created!')
+                
+            i += 1
 
     with open(f'{tar_folder_path}/segments.json', 'w') as segments_file:
         json.dump(segments_dict, segments_file, indent=4)

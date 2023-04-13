@@ -24,8 +24,9 @@ def encryptSegments(output_path):
     with open(f'{output_path}segments.json', 'r') as segments_fie:
         segments_dict = json.load(segments_fie)
         print('segments.json opened')
+        print(segments_dict)
 
-    for key in sorted(segments_dict.keys()):
+    for key in sorted(segments_dict.keys(), key=lambda x: int(x)):
         segment_path = segments_dict[key]
         segment_hash_path = output_path + createHash(segment_path)
         with open(segment_hash_path, 'wb') as segment_encrypted:
